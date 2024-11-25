@@ -220,12 +220,29 @@ export function app() {
 function ngApp(req, res, next) {
   if (environment.ssr.enabled) {
     // Render the page to user via SSR (server side rendering)
-    serverSideRender(req, res, next);
+    if (shouldUseSSR(req)) {
+      serverSideRender(req, res, next);
+    } else {
+      // Preboot is enabled, but SSR filter is enabled and request path is not in the SSR filter
+      clientSideRender(req, res);
+    }
   } else {
     // If preboot is disabled, just serve the client
     console.log('Universal off, serving for direct client-side rendering (CSR)');
     clientSideRender(req, res);
   }
+}
+
+/**
+ * Returns whether the requested page should be rendered using SSR or not, based on {@link SSRFilterConfig}.
+ */
+function shouldUseSSR(req): boolean {
+  console.log(req.path);
+  return !environment.ssrFilter.enabled
+    || (
+      req.method === 'GET' &&
+      environment.ssrFilter.ssrPathPrefixes.some(pathPrefix => req.path.startsWith(pathPrefix))
+    );
 }
 
 /**

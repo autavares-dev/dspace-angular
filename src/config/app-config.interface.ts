@@ -33,6 +33,7 @@ import { SubmissionConfig } from './submission-config.interface';
 import { SuggestionConfig } from './suggestion-config.interfaces';
 import { ThemeConfig } from './theme.config';
 import { UIServerConfig } from './ui-server-config.interface';
+import { SSRFilterConfig } from './ssr-filter.config';
 
 
 interface AppConfig extends Config {
@@ -66,6 +67,7 @@ interface AppConfig extends Config {
   search: SearchConfig;
   notifyMetrics: AdminNotifyMetricsRow[];
   liveRegion: LiveRegionConfig;
+  ssrFilter: SSRFilterConfig;
 }
 
 /**

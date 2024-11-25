@@ -28,6 +28,7 @@ import { SubmissionConfig } from './submission-config.interface';
 import { SuggestionConfig } from './suggestion-config.interfaces';
 import { ThemeConfig } from './theme.config';
 import { UIServerConfig } from './ui-server-config.interface';
+import { SSRFilterConfig } from './ssr-filter.config';
 
 export class DefaultAppConfig implements AppConfig {
   production = false;
@@ -598,4 +599,17 @@ export class DefaultAppConfig implements AppConfig {
     messageTimeOutDurationMs: 30000,
     isVisible: false,
   };
+
+  // SSR filter based on URL path
+  ssrFilter: SSRFilterConfig = {
+    enabled: false,
+    ssrPathPrefixes: [
+      '/items/',
+      '/entities/',
+      '/collections/',
+      '/communities/',
+      '/bitstream/',
+      '/bitstreams/',
+    ]
+  }
 }
